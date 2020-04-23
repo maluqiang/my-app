@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/theme.less",
               "src/styles.css"
             ],
             "scripts": []
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "my-app"
+    }
+  },
+  "defaultProject": "my-app",
+  "cli": {
+    "analytics": "5e8e8d2d-0081-46a2-8b19-f997866d9f3b"
+  }
 }
