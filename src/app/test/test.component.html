@@ -6,3 +6,35 @@
   <h1>{{testLabel}}</h1>
   <button (click)="alertTest();">{{testLabel}}</button>
 </div>
+<div class="auth-container">
+    <div nz-row nzType="flex" nzAlign="middle" nzJustify="center" class="image-container">
+      <img [src]="logo">
+      <h2>抗疫防控鉴定综合信息查询</h2>
+    </div>
+  <form nz-form [nzLayout]="'inline'" [formGroup]="formGroupTest" (ngSubmit)="submitForm()" class="form-container">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="authCode">用户名</nz-form-label>
+        <nz-form-control nzErrorTip="请输入用户名!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input formControlName="username" nz-input placeholder="请输入用户名"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="authCode">密码</nz-form-label>
+        <nz-form-control nzErrorTip="请输入密码!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input formControlName="password" nz-input placeholder="请输入密码"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row nzType="flex" nzAlign="middle" nzJustify="center" class="btn-container">
+      <button
+        [ngClass]="{'active':formGroupTest.valid}"
+        nz-col nz-button nzType="primary" [disabled]="!formGroupTest.valid">确认
+      </button>
+    </div>
+  </form>
+</div>

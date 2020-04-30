@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NZ_I18N, zh_CN} from 'ng-zorro-antd/i18n';
@@ -11,6 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/en';
 import {TestComponent} from './test/test.component';
 import {RouterModule} from '@angular/router';
+import {NzFormModule, NzInputModule} from 'ng-zorro-antd';
 // import {LoginComponent} from './login/login.component';
 
 registerLocaleData(zh);
@@ -27,6 +28,9 @@ registerLocaleData(zh);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    NzFormModule,
+    NzInputModule,
     // RouterModule.forRoot([
     //   { path: '', component: LoginComponent },
     //   { path: 'login/:login', component: LoginComponent },
