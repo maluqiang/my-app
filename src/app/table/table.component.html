@@ -1,0 +1,35 @@
+
+<button (click) = "myClick();">确认
+</button>
+
+<nz-table #basicTable [nzData]="modelData"
+          [nzLoadingDelay]="loadingDelay"
+          [nzBordered]="bordered"
+          [nzFrontPagination]="frontPagination">
+  <thead>
+  <tr>
+    <th [nzAlign]="'center'" nzWidth="140px">字典类型</th>
+    <th [nzAlign]="'center'" nzWidth="120px">字典code</th>
+    <th [nzAlign]="'center'" nzWidth="120px">字典name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item  of basicTable.data">
+    <td [nzAlign]="'center'">
+      <a href="javascript:void(0)" (click)="lookInfo(item.type)">
+        {{item.type}}
+      </a>
+    </td>
+    <td [nzAlign]="'center'">
+      <a href="javascript:void (0)">
+        {{item.code}}
+      </a>
+    </td>
+    <td [nzAlign]="'center'">
+      <a href="javascript:void (0)">
+        {{item.name}}
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
