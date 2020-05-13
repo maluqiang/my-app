@@ -15,6 +15,7 @@ import {NzButtonModule, NzCheckboxModule, NzFormModule, NzInputModule, NzTableMo
 import {TableComponent} from './table/table.component';
 import {LoginComponent} from './login/login.component';
 import {AppRoutes} from './routes/app.routes';
+import {CommonUtil} from './common/common-util';
 
 registerLocaleData(zh);
 
@@ -44,7 +45,7 @@ registerLocaleData(zh);
     RouterModule.forRoot(AppRoutes),
     NzTableModule
   ],
-  providers: [{provide: NZ_I18N, useValue: zh_CN}],
+  providers: [{provide: NZ_I18N, useValue: zh_CN}, CommonUtil],
   bootstrap: [AppComponent]
   // bootstrap: [LoginComponent]
   // bootstrap: [TestComponent]

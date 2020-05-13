@@ -1,35 +1,90 @@
-
-<button (click) = "myClick();">确认
-</button>
-
-<nz-table #basicTable [nzData]="modelData"
-          [nzLoadingDelay]="loadingDelay"
-          [nzBordered]="bordered"
-          [nzFrontPagination]="frontPagination">
-  <thead>
-  <tr>
-    <th [nzAlign]="'center'" nzWidth="140px">字典类型</th>
-    <th [nzAlign]="'center'" nzWidth="120px">字典code</th>
-    <th [nzAlign]="'center'" nzWidth="120px">字典name</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let item  of basicTable.data">
-    <td [nzAlign]="'center'">
-      <a href="javascript:void(0)" (click)="lookInfo(item.type)">
-        {{item.type}}
-      </a>
-    </td>
-    <td [nzAlign]="'center'">
-      <a href="javascript:void (0)">
-        {{item.code}}
-      </a>
-    </td>
-    <td [nzAlign]="'center'">
-      <a href="javascript:void (0)">
-        {{item.name}}
-      </a>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
+<form nz-form [nzLayout]="'inline'" [formGroup]="formGroupTest" (ngSubmit)="myClick()" class="form-container">
+  <div nz-row>
+    <nz-form-item>
+      <nz-form-label nzSpan="8">鉴定意见</nz-form-label>
+      <nz-form-control nzSpan="12">
+        <nz-select
+          formControlName="baseAuditLevel"
+          nzAllowClear
+          nzShowSearch
+          nzPlaceHolder="请选择"
+        >
+          <ng-container *ngIf="staticDataService.staticData.auditLevel">
+            <nz-option *ngFor="let item of staticDataService.staticData.auditLevel" [nzValue]="item.id"
+                       [nzLabel]="item.name"></nz-option>
+          </ng-container>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="type">字典type</nz-form-label>
+      <nz-form-control nzErrorTip="请输入字典type!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input formControlName="type" nz-input placeholder="请输入字典type"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="code">字典code</nz-form-label>
+      <nz-form-control nzErrorTip="请输入字典code!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input formControlName="code" nz-input placeholder="请输入字典code"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="name">字典name</nz-form-label>
+      <nz-form-control nzErrorTip="请输入字典name!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input formControlName="name" nz-input placeholder="请输入字典name"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-row nzType="flex" nzAlign="middle" nzJustify="center" class="btn-container">
+    <button
+      [ngClass]="{'active':formGroupTest.valid}"
+      nz-col nz-button nzType="primary" [disabled]="!formGroupTest.valid">确认
+    </button>
+  </div>
+</form>
+<ng-container *ngIf="commonUtil.resultData | async as modelData">
+  <nz-table class="table-margin" #basicTable [nzData]="modelData"
+            [nzLoadingDelay]="loadingDelay"
+            [nzBordered]="bordered"
+            [nzFrontPagination]="frontPagination">
+    <thead>
+    <tr>
+      <th [nzAlign]="'center'" nzWidth="140px">字典类型</th>
+      <th [nzAlign]="'center'" nzWidth="120px">字典code</th>
+      <th [nzAlign]="'center'" nzWidth="120px">字典name</th>
+      <th [nzAlign]="'center'" nzWidth="120px">排序</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--  <tr *ngFor="let item  of resultData">-->
+    <tr *ngFor="let item  of basicTable.data">
+      <td [nzAlign]="'center'">
+        <a href="javascript:void(0)" (click)="lookInfo(item)">
+          {{item.type}}
+        </a>
+      </td>
+      <td [nzAlign]="'center'">
+        <a href="javascript:void (0)">
+          {{item.code}}
+        </a>
+      </td>
+      <td [nzAlign]="'center'">
+        <a href="javascript:void (0)">
+          {{item.name}}
+        </a>
+      </td>
+      <td [nzAlign]="'center'">
+        <a href="javascript:void (0)">
+          {{item.sort}}
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</ng-container>

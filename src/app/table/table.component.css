@@ -1,7 +1,11 @@
 
-      .login-form {
-        max-width: 300px;
-      }
+.table-margin {
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+.login-form {
+  max-width: 300px;
+}
 
       .login-form-margin {
         margin-bottom: 16px;
@@ -14,4 +18,3 @@
       .login-form-button {
         width: 100%;
       }
-    

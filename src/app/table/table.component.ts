@@ -1,9 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonLogic} from '../common/common-logic';
-import {Observable, of, Subject} from 'rxjs';
-import {CategoryAuthData, CommonUtil, TableHeads} from '../common/common-util';
-import {map, merge} from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {CommonUtil, TableHeads} from '../common/common-util';
 import {CommonTest} from '../common/common-test';
 
 @Component({
@@ -14,24 +13,23 @@ import {CommonTest} from '../common/common-test';
 })
 export class TableComponent implements OnInit, OnChanges {
 
-  @Input() tableHeads: TableHeads[];
+  // @Input() modelData: TableHeads[];
   @Input() scrollConfig: any;
   @Input() loadingDelay: number;
   @Input() bordered: boolean;
   @Input() frontPagination: boolean;
-  modelData;
   tes: string;
 
   private API_SELECT_DICTIONARY = '/dictionary/select';
-  formGroupTest1: FormGroup;
+  formGroupTest: FormGroup;
   logo = './assets/images/logo.png';
   updateAction$ = new Subject();
-  resultData: Observable<any>;
-
+  // resultData: Observable<any>;
+  // resultData: TableHeads[];
   constructor(
     private formBuilder: FormBuilder,
     private commonLogic: CommonLogic,
-    private commonUtil: CommonUtil,
+    public commonUtil: CommonUtil,
     private commonTest: CommonTest
   ) {
   }
@@ -41,38 +39,53 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.formGroupTest1 = this.formBuilder.group({
-      username: [null, [Validators.required]],
-      idCard: [null, [Validators.required]],
+    this.formGroupTest = this.formBuilder.group({
+      type: [null, [Validators.required]],
+      code: [null],
+      name: null,
     });
     const par = {
-      username: '123',
-      idCard: '333'
+      type: 0,
+      code: '',
+      name: '',
     };
-    this.formGroupTest1.patchValue(par);
-    const sd = this.commonUtil.getAll(par);
-    this.commonUtil.resultData = sd;
-    this.modelData = sd;
+    this.formGroupTest.patchValue(par);
+    this.commonUtil.resultData = this.commonUtil.getAll(par);
+    // this.table.;
+
+    // this.resultData = sd.subscribe();
+    // this.modelData = sd;
   }
   myClick(): void{
-    const a = this.test;
-    console.log(map(this.test));
-    this.tes = a.call('1222');
-    console.log(this.tes);
-    console.log(this.resultData);
+    for (const i in this.formGroupTest.controls) {
+      if (i === undefined) {
+        continue;
+      }
+      this.formGroupTest.controls[i].markAsDirty();
+      this.formGroupTest.controls[i].updateValueAndValidity();
+    }
+    const par = this.formGroupTest.getRawValue();
+    const args = {};
 
-
-    this.commonTest.test();
-    // myObserver.next('1');
-
-    // myObserver.error('1');
-    this.ngOnInit();
+    for (const [key, value] of Object.entries(par)) {
+      if (value != null && value !== '') {
+        args[key] = value;
+      }
+    }
+    debugger;
+    this.commonUtil.resultData = this.commonUtil.getAll(args);
+    // const server = {
+    //   next(x) { console.log(x); },
+    //   error() { console.log(12); },
+    // };
+    // sd.pipe(this.test).subscribe(server);
   }
 
-  private test = (resultData) => {
-    alert(resultData);
-    resultData = 'da';
-    return '12';
+  private test = resultData => {
+    // alert(resultData);
+    // resultData = 'da';
+    // this.modelData = resultData;
+    return resultData;
   }
 
   /**

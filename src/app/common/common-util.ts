@@ -11,7 +11,7 @@ export class CommonUtil{
   url = 'http://localhost:8091';
   private API_SELECT_DICTIONARY = '/dictionary/select';
 
-  resultData: Observable<TableHeads[] | CategoryAuthData[] | any>;
+  resultData: Observable<TableHeads[] | any>;
   sender = new Subject();
 
   constructor(private commonLogic: CommonLogic, private httpClient: HttpClient){
@@ -34,7 +34,8 @@ export class CommonUtil{
         data
       } = JSON.parse(serviceResult);
       if (flag === 'true' && data) {
-        return data.data;
+        console.log(data.dictionaryList);
+        return data.dictionaryList;
       }
       return null;
     }
